@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		body {
+			padding: 10px;
+			color: #5876a3;
+			font-size: .8125rem;
+			font-family: Helvetica Neue, Helvetica, Arial;
+		}
+		h1, h2 {
+			font-weight: 300;
+			line-height: 1.25;
+			color: #16325c;
+			padding-top: 0;
+			margin-top: 0;
+		}
+		h1 {
+			font-size: 1.75rem;
+		}
+		h2 {
+			font-size: 1.25rem;
+		}
+		table {
+			width: 100%;
+			border-collapse: separate;
+			border-top: 1px solid #d8dde6;
+			border-bottom: 1px solid #d8dde6;
+			border-spacing: 0;
+			background-color: #fdfdfd;
+			font-size: inherit;
+		}
+		thead, .b {
+			font-size: 0.75rem;
+			line-height: 1.25;
+			color: #54698d;
+			text-transform: uppercase;
+			letter-spacing: 0.0625rem;
+		}
+		.b {
+			font-weight: bold;
+		}
+		tbody {
+			display: table-row-group;
+			vertical-align: middle;
+			border-color: inherit;
+		}
+		tr {
+			display: table-row;
+			vertical-align: inherit;
+			border-color: inherit;
+		}
+		tbody tr:nth-of-type(even) {
+			background-color: #f4f6f9;
+		}
+		tbody td {
+			border-top: 1px solid #d8dde6;
+			padding: 0.5rem;
+			position: relative;
+			break-word: normal;
+		}
+		td, th {
+			padding: 0.5rem;
+		}
+		#tabs {
+			overflow: hidden;
+			border-bottom: 1px solid #d8dde6;
+		}
+		#tabs button {
+			font-weight: 300;
+			font-size: 1rem;
+			color: #16325c;
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 10px 10px;
+		}
+		#tabs button.active, #tabs button:hover {
+			color: #16325c;
+			border-bottom: 2px solid #0070d2;
+		}
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+		}
+		#tabContentDivs .tabcontent:first-child {
+			display: block;
+		}
+		button.cmd {
+			padding-left: 1rem;
+			padding-right: 1rem;
+			border-radius: 0.25rem;
+			border: 1px solid #d8dde6;
+			text-align: center;
+			vertical-align: middle;
+			background-color: #ffffff;
+			cursor: pointer;
+			color: #0070d2;
+			font-size: 0.75rem;
+			line-height: 1.875rem;
+		}
+		button.cmd:hover {
+			background-color: #f4f6f9;
+			color: #005fb2;
+		}
+		div.action {
+			background: #f4f6f9;
+			border: 1px solid #d8dde6;
+			border-radius: 0.25rem;
+			background-clip: padding-box;
+			display: flex;
+			flex-direction: column;
+			padding: 10px
+		}
+		div.action h2 {
+			display: block;
+			float: left;
+		}
+		div.action button {
+			display: block;
+			float: right;
+		}
+		.center {
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h1>Salesforce Marketing Cloud - Developer Tools</h1>
+
+	<div id="tabs">
+		<button class="tabnav active" id="instanceInfoNav">Instance Info</button>
+		<button class="tabnav" id="enhanceUINav">Enhance UI features</button>
+		<button class="tabnav" id="dataExtensionDetailsNav">Data Extension Details</button>
+		<button class="tabnav" id="errorsNav">Error Messages</button>
+	</div>
+
+	<div id="tabContentDivs">
+		<div id="instanceInfo" class="tabcontent">
+			<p>The tables below are only populated with data if you visit the Marketing Cloud Dashboard while the devtools are open.</p>
+			<h2>Basic Info</h2>
+			<table>
+				<tbody>
+					<tr>
+						<td class="b">Member ID:</td>
+						<td id="memberId"></td>
+					</tr>
+					<tr>
+						<td class="b">Enterprise ID:</td>
+						<td id="enterpriseId"></td>
+					</tr>
+					<tr>
+						<td class="b">Name:</td>
+						<td id="orgName"></td>
+					</tr>
+					<tr>
+						<td class="b">Account type:</td>
+						<td id="accountType"></td>
+					</tr>
+					<tr>
+						<td class="b">Username:</td>
+						<td id="userName"></td>
+					</tr>
+					<tr>
+						<td class="b">User email:</td>
+						<td id="userEmail"></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+			<h2>Application Availability</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Application name</th>
+						<th>Provisioned in account?</th>
+						<th>Accessible by current user?</th>
+					</tr>
+				</thead>
+				<tbody id="applications">
+				</tbody>
+			</table>
+		</div>
+		<div id="enhanceUI" class="tabcontent">
+			<div class="action">
+				<header>
+					<h2>Expose Publication List Ids</h2>
+					<button id="exposePubListIds" class="cmd" title="Adds the ids of your publication list to the name column.">Execute</button>
+				</header>
+				<p>
+					Adds the ids of your publication list to the name column (e.g. Test <i>(ID: 1234)</i>). If you need the data for further programmatic use, an array of all publication lists including id, name and category is printed to the console. The output looks like this:<br />
+					<code>
+						Publication Lists: [{"listId":1234,"categoryId":1234,"name":"Test"},{"listId":1235,"categoryId":1234,"name":"Test 2"}]
+					</code>
+				</p>
+				<b>Prerequisites:</b>
+					<ul>
+						<li>Navigate to the <i>Publication Lists</i> page in Email Studio (<i>Email Studio &rarr; Email &rarr; Subscribers &rarr; My Subscribers &rarr; Publication Lists</i>).</li>
+						<li>Click on the <i>"Execute"</i>-button above.</li>
+					</ul>
+				</p>
+			</div>
+		</div>
+		<div id="dataExtensionDetails" class="tabcontent">
+			<p>The table below is only populated with data extensions visible in the most recent folder you accessed in Email Studio while this extension was open.<br />To populate data go to <i>Email Studio &rarr; Subscribers &rarr; Data Extensions</i> and select the folder containing the data extensions of which you like to see the details.</p>
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>ID</th>
+						<th>CustomerKey</th>
+						<th>Subscriber Relationship</th>
+						<th>Sendable?</th>
+						<th>Testable?</th>
+						<th>Field Count</th>
+						<th>Records</th>
+					</tr>
+				</thead>
+				<tbody id="dataExtensions">
+				</tbody>
+			</table>
+		</div>
+		<div id="errors" class="tabcontent">
+			<table>
+				<thead>
+					<tr>
+						<th>Time</th>
+						<th>Status</th>
+						<th>Statustext</th>
+						<th>Message</th>
+					</tr>
+				</thead>
+				<tbody id="errorlist">
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="scripts/messaging.js"></script>
+	<script src="scripts/panel.js"></script>
+</body>
+</html>
