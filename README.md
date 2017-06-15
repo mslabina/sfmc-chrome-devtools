@@ -35,6 +35,7 @@ Displays error messages, even the ones not shown in the user interface. Instead 
 ## Project Links
 
  - [Project Website](https://markus.codes/sfmc-chrome-devtools)
+ - [Extension in the Google Chrome Webstore](https://chrome.google.com/webstore/detail/salesforce-marketing-clou/bkmmmgaljahinmpijhdggabkdngpadbn?hl=en-US)
 
 ## Contributors
 
