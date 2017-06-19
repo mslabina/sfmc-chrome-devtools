@@ -10,6 +10,13 @@ chrome.devtools.panels.create('Marketing Cloud', 'icons/icon128.png', 'panel.htm
 							content = JSON.parse(content);
 							if (content.message)	content.message = content.message.replace('\n', '<br />');
 						} catch (e) {
+							try {
+								let tmp = document.createElement('div');
+								tmp.innerHTML = content;
+								content = tmp.innerText || 'No message returned';
+							} catch (e) {
+								content = 'No message returned';
+							}
 						}
 						let errorList = win.document.getElementById('errorlist');
 						const message = (content && content.message) ? content.message : (content || 'No message returned');
