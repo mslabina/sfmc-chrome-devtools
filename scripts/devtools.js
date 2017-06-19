@@ -2,7 +2,7 @@ chrome.devtools.panels.create('Marketing Cloud', 'icons/icon128.png', 'panel.htm
 	panel.onShown.addListener((win) => {
 		chrome.devtools.network.onRequestFinished.addListener((request) => {
 			// We are only interested in marketing cloud responses, so only handle them
-			if (/exacttarget|marketingcloud|sfmc/g.test(request.request.url) === true) {
+			if (/exacttarget|marketingcloud|sfmc|exct|salesforce/g.test(request.request.url) === true) {
 				if (request.response.status >= 400 && request.request.url.indexOf('favicon') < 0) {
 					// An error status has been returned and the request was sent to marketing cloud
 					request.getContent((content) => {
