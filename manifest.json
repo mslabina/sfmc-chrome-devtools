@@ -1,7 +1,7 @@
 {
 	"name": "Salesforce Marketing Cloud - Developer Tools",
 	"short_name": "SFMC Devtools",
-	"version": "0.1.1",
+	"version": "0.1",
 	"description": "An extension that makes life easier for Salesforce Marketing Cloud users.",
 	"author": "Markus Slabina <me@markus-slabina.at>",
 	"devtools_page": "devtools.html",
