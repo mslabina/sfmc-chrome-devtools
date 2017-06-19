@@ -20,7 +20,8 @@ chrome.devtools.panels.create('Marketing Cloud', 'icons/icon128.png', 'panel.htm
 						}
 						let errorList = win.document.getElementById('errorlist');
 						const message = (content && content.message) ? content.message : (content || 'No message returned');
-						errorList.innerHTML = '<tr><td>' + new Date().toLocaleString() + '</td><td>' + request.response.status + '</td><td>' + request.response.statusText + '</td><td>' + message + '</td></tr>' + errorList.innerHTML;
+						const url = request.request.url.replace(/^https?:\/\/.*?(?=\/)/g, '');
+						errorList.innerHTML = '<tr><td>' + new Date().toLocaleString() + '</td><td>' + request.response.status + '</td><td>' + request.response.statusText + '</td><td>' + url + '</td><td>' + message + '</td></tr>' + errorList.innerHTML;
 					});
 				} else {
 					// Gain information, from successful responses that are interesting for us
