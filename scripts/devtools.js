@@ -1,4 +1,5 @@
 chrome.devtools.panels.create('Marketing Cloud', 'icons/icon128.png', 'panel.html', (panel) => {
+	panel.activities = {};
 	panel.onShown.addListener((win) => {
 		chrome.devtools.network.onRequestFinished.addListener((request) => {
 			// We are only interested in marketing cloud responses, so only handle them
@@ -80,6 +81,91 @@ chrome.devtools.panels.create('Marketing Cloud', 'icons/icon128.png', 'panel.htm
 									dataExtensionHtml += '</tr>';
 								});
 								win.document.getElementById('dataExtensions').innerHTML = dataExtensionHtml;
+							} catch (e) {}
+						});
+					} else if (/\/fuelapi\/interaction\/v1\/interactions/g.test(request.request.url) === true) {
+						// This route contains information on a journey
+						request.getContent((content) => {
+							try {
+								content = JSON.parse(content);
+
+								if (content.activities) {
+									content.activities.forEach((activity) => {
+										panel.activities[activity.id] = activity;
+									});
+								}
+
+								win.document.getElementById('journeyName').innerHTML = (content && content.items && content.items.length > 0) ? content.items[0].name : '';
+								win.document.getElementById('journeyId').innerHTML = (content && content.items && content.items.length > 0) ? content.items[0].id : '';
+								win.document.getElementById('journeyKey').innerHTML = (content && content.items && content.items.length > 0) ? content.items[0].key : '';
+								win.document.getElementById('journeyVersions').innerHTML = content.count || '';
+
+								let journeyHtml = '';
+								content.items.forEach((journey) => {
+									journeyHtml += '<tr>';
+									journeyHtml += '<td class="center">' + (journey.version || '') + '</td>';
+									journeyHtml += '<td class="center">' + (journey.status || '') + '</td>';
+									journeyHtml += '<td class="center">' + (journey.executionMode || '') + '</td>';
+									journeyHtml += '<td class="center">' + (new Date(journey.createdDate).toLocaleString() || '') + '</td>';
+									journeyHtml += '<td class="center">' + (journey.entryMode || '') + '</td>';
+									journeyHtml += '<td class="center">' + (journey.stats.cumulativePopulation || '') + '</td>';
+									if (journey.goals && journey.goals.length > 0) {
+										if (journey.goals[0].metaData.conversionUnit === 'percentage') {
+											journeyHtml += '<td>I want ' + journey.goals[0].metaData.conversionValue + '% of the population to ' + journey.goals[0].description + '</td>';
+										} else {
+											journeyHtml += '<td>I want ' + journey.goals[0].metaData.conversionValue + ' total people ' + journey.goals[0].description + '</td>';
+										}
+										journeyHtml += '<td class="center">' + (journey.goals[0].metaData.isExitCriteria ? '&check;' : '&cross;') + '</td>';
+									} else {
+										journeyHtml += '<td>-</td><td>-</td>';
+									}
+									journeyHtml += '<td class="center">' + (journey.stats.goalPerformance ? journey.stats.goalPerformance + '%' : '-') + '</td>';
+									journeyHtml += '<td class="center">' + (journey.stats.metGoal || '-') + '</td>';
+									journeyHtml += '</tr>';
+								});
+								win.document.getElementById('journeys').innerHTML = journeyHtml;
+							} catch (e) {}
+						});
+					} else if (/\/fuelapi\/interaction\/v1\/goalstatistics/g.test(request.request.url) === true) {
+						// This route contains information on the goal attainment per activity of the active journey version
+						request.getContent((content) => {
+							try {
+								content = JSON.parse(content);
+
+								let goalAttainmentPerActivityHtml = '';
+								let resultsByActivity = {};
+								content.days.forEach((day) => {
+									day.activities.forEach((activity) => {
+										if (!resultsByActivity[activity.activityId]) resultsByActivity[activity.activityId] = 0;
+										resultsByActivity[activity.activityId] += activity.metGoalForDay;
+									});
+								});
+
+								let goalAttainmentJson = {
+									totalMetGoal: Object.keys(resultsByActivity).reduce((acc, value) => acc + resultsByActivity[value], 0),
+									activities: []
+								};
+
+								Object.keys(resultsByActivity).forEach((id) => {
+									let tmp = {
+										id: id,
+										metGoal: resultsByActivity[id]
+									};
+
+									goalAttainmentPerActivityHtml += '<tr>';
+									goalAttainmentPerActivityHtml += '<td class="center">' + (id || '-') + '</td>';
+									if (panel && panel.activities && panel.activities[id]) {
+										tmp.key = panel.activities[id].key;
+										goalAttainmentPerActivityHtml += '<td class="center">' + (panel.activities[id].key || '-') + '</td>';
+									} else {
+										goalAttainmentPerActivityHtml += '<td class="center">-</td>';
+									}
+									goalAttainmentPerActivityHtml += '<td class="center">' + (resultsByActivity[id] || '0') + '</td>';
+									goalAttainmentPerActivityHtml += '</tr>';
+									goalAttainmentJson.activities.push(tmp);
+								});
+								win.document.getElementById('goalAttainmentPerActivity').innerHTML = goalAttainmentPerActivityHtml;
+								win.document.getElementById('goalAttainmentJson').value = JSON.stringify(goalAttainmentJson);
 							} catch (e) {}
 						});
 					}

@@ -12,7 +12,7 @@ This is an extension of Google Chrome developer tools, that makes life easier fo
 
 However, this extension is currently being developed so the featureset will grow over time. If you have any questions, discovered bugs or just have an idea on how to improve this extension, feel free to raise an issue here on github.
 
-## Features (v0.1)
+## Features (v0.2.x)
 
 ### Gather Instance Information
 
@@ -27,6 +27,28 @@ Adds the ids of your publication lists to the name column of the Publication Lis
 ### Display Data Extension Details
 
 This feature helps displaying important information about your data extensions that isn't available without inspecting network requests or going to the details page of your data extension for example. Some of this can be useful if you need to develop custom entry events for example (e.g. an [event using transaction keys](https://github.com/mslabina/sfmc-customevent-with-transactionkey) to allow correct evaluation of multiple entries per subscriber). As soon as you navigate to the folder containing the data extensions you want to check, the data will be presented in the "Data Extension Details" tab.
+
+### Display Journey Details
+
+This feature helps displaying important information about a journey and it's versions in one combined view. Listed data includes Name, Id, CustomerKey, number of versions, information about the goal as well as goal attainment of each version. Additionally there is a breakdown into goal attainment at specific activities in the current journey version which is also available as JSON and therefore enables the user to easily reuse this information in external systems, programs and scripts. As soon as you open the journey you want to check, the data will be presented in the "Journey Details" tab.
+
+Example JSON-output:
+
+    {
+      "totalMetGoal": 579,
+      "activities": [
+        {
+          "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+          "metGoal": 123,
+          "key": "WAIT-1"
+        },
+        {
+          "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+          "metGoal": 456,
+          "key": "WAIT-2"
+        }
+      ]
+    }
 
 ### Expose Error Messages
 

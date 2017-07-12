@@ -8,7 +8,7 @@
 			font-size: .8125rem;
 			font-family: Helvetica Neue, Helvetica, Arial;
 		}
-		h1, h2 {
+		h1, h2, h3 {
 			font-weight: 300;
 			line-height: 1.25;
 			color: #16325c;
@@ -20,6 +20,9 @@
 		}
 		h2 {
 			font-size: 1.25rem;
+		}
+		h3 {
+			font-size: 1rem;
 		}
 		table {
 			width: 100%;
@@ -125,6 +128,11 @@
 		.center {
 			text-align: center;
 		}
+		textarea {
+			border: 1px solid #d8dde6;
+			width: 100%;
+			height: 50px;
+		}
 	</style>
 </head>
 <body>
@@ -134,6 +142,7 @@
 		<button class="tabnav active" id="instanceInfoNav">Instance Info</button>
 		<button class="tabnav" id="enhanceUINav">Enhance UI features</button>
 		<button class="tabnav" id="dataExtensionDetailsNav">Data Extension Details</button>
+		<button class="tabnav" id="journeyDetailsNav">Journey Details</button>
 		<button class="tabnav" id="errorsNav">Error Messages</button>
 	</div>
 
@@ -221,6 +230,66 @@
 				<tbody id="dataExtensions">
 				</tbody>
 			</table>
+		</div>
+		<div id="journeyDetails" class="tabcontent">
+			<p>The table below is only populated with data of the journey you most recently accessed in Journey Builder while this extension was open.<br />To populate data go to <i>Journey Builder</i> and open the journey of which you like to see the details.</p>
+			<h2>Basic Info</h2>
+			<table>
+				<tbody>
+					<tr>
+						<td class="b">Name:</td>
+						<td id="journeyName"></td>
+					</tr>
+					<tr>
+						<td class="b">ID:</td>
+						<td id="journeyId"></td>
+					</tr>
+					<tr>
+						<td class="b">CustomerKey:</td>
+						<td id="journeyKey"></td>
+					</tr>
+						<tr>
+						<td class="b">Versions:</td>
+						<td id="journeyVersions"></td>
+					</tr>
+				</tbody>
+			</table>
+			<br />
+			<h2>Versions</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Version</th>
+						<th>Status</th>
+						<th>Execution Mode</th>
+						<th>Created Date</th>
+						<th>Entry Mode</th>
+						<th>Population</th>
+						<th>Goal Description</th>
+						<th>Goal leads to exit?</th>
+						<th>Met Goal (Relative)</th>
+						<th>Met Goal (Total)</th>
+					</tr>
+				</thead>
+				<tbody id="journeys">
+				</tbody>
+			</table>
+			<br />
+			<h2>Goal Attainment per Activity (current version)</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Key</th>
+						<th>Met Goal (Total)</th>
+					</tr>
+				</thead>
+				<tbody id="goalAttainmentPerActivity">
+				</tbody>
+			</table>
+			<br />
+			<h3>Data as JSON</h3>
+			<textarea id="goalAttainmentJson"></textarea>
 		</div>
 		<div id="errors" class="tabcontent">
 			<table>
