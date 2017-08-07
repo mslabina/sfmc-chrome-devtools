@@ -6,6 +6,14 @@ document.querySelector('#exposePubListIds').addEventListener('click', () => {
 	});
 }, false);
 
+document.querySelector('#exposeWaitActivityKeys').addEventListener('click', () => {
+	sendObjectToInspectedPage({
+		action: 'script',
+		content: 'scripts/expose-wait-activity-keys.js',
+		allFrames: true
+	});
+}, false);
+
 window.onload = () => {
 	let tabNavigation = document.getElementsByClassName('tabnav');
 	for (let i = 0; i < tabNavigation.length; i++) {

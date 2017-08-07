@@ -12,7 +12,7 @@ This is an extension of Google Chrome developer tools, that makes life easier fo
 
 However, this extension is currently being developed so the featureset will grow over time. If you have any questions, discovered bugs or just have an idea on how to improve this extension, feel free to raise an issue here on github.
 
-## Features (v0.2.x)
+## Features (v0.2.1)
 
 ### Gather Instance Information
 
@@ -23,6 +23,10 @@ If you open this extension and visit the Marketing Cloud Dashboard, basic inform
 Adds the ids of your publication lists to the name column of the Publication List view in Email Studio. If you need the data for further programmatic use, an array of all publication lists including id, name and category is printed to the console. This is all as easy as clicking a button while being on the Publication Lists page in Email Studio. The console output looks like this:
 
 `Publication Lists: [{"listId":1234,"categoryId":1234,"name":"Test"},{"listId":1235,"categoryId":1234,"name":"Test 2"}]`
+
+### Expose Wait Activity Keys
+
+Adds the keys of your wait activities in Journey Builder after the wait time on the journey canvas (e.g. 3 days <i>(WAIT-1)</i>). In combination with the "Journey Details"-feature this helps with the programmatic analysis of goal attainment in specific paths of your journey (you can find a description of this feature below; further information is available on my [blog](https://markus.codes/2017/08/03/salesforce-marketing-cloud-developer-tools-journey-details-feature)).
 
 ### Display Data Extension Details
 
