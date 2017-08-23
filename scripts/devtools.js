@@ -112,7 +112,7 @@ chrome.devtools.panels.create('Marketing Cloud', 'icons/icon128.png', 'panel.htm
 										if (activity.type && activity.type.toLowerCase().indexOf('email') > -1 && activity.configurationArguments) {
 											activitiesHtml += '<td class="center">' + (activity.configurationArguments.triggeredSendId || '-') + '</td>';
 											tmpActivity.triggeredSendId = activity.configurationArguments.triggeredSendId;
-										}else {
+										} else {
 											activitiesHtml += '<td class="center">-</td>';
 										}
 										activitiesHtml += '</tr>';
