@@ -6,10 +6,10 @@ document.querySelector('#exposePubListIds').addEventListener('click', () => {
 	});
 }, false);
 
-document.querySelector('#exposeWaitActivityKeys').addEventListener('click', () => {
+document.querySelector('#exposeActivityKeys').addEventListener('click', () => {
 	sendObjectToInspectedPage({
 		action: 'script',
-		content: 'scripts/expose-wait-activity-keys.js',
+		content: 'scripts/expose-activity-keys.js',
 		allFrames: true
 	});
 }, false);
