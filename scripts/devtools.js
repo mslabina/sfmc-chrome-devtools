@@ -97,18 +97,26 @@ chrome.devtools.panels.create('Marketing Cloud', 'icons/icon128.png', 'panel.htm
 										// with goal attainment data retrievied from another route
 										panel.activities[activity.id] = activity;
 
+										let tmpActivity = {
+											id: activity.id,
+											key: activity.key,
+											type: activity.type,
+											name: activity.name
+										};
+
 										activitiesHtml += '<tr>';
 										activitiesHtml += '<td class="center">' + (activity.id || '-') + '</td>';
 										activitiesHtml += '<td class="center">' + (activity.key || '-') + '</td>';
 										activitiesHtml += '<td class="center">' + (activity.type || '-') + '</td>';
 										activitiesHtml += '<td class="center">' + (activity.name || '-') + '</td>';
+										if (activity.type && activity.type.toLowerCase().indexOf('email') > -1 && activity.configurationArguments) {
+											activitiesHtml += '<td class="center">' + (activity.configurationArguments.triggeredSendId || '-') + '</td>';
+											tmpActivity.triggeredSendId = activity.configurationArguments.triggeredSendId;
+										}else {
+											activitiesHtml += '<td class="center">-</td>';
+										}
 										activitiesHtml += '</tr>';
-										activitiesJson.activities.push({
-											id: activity.id,
-											key: activity.key,
-											type: activity.type,
-											name: activity.name
-										});
+										activitiesJson.activities.push(tmpActivity);
 									});
 
 									win.document.getElementById('activityList').innerHTML = activitiesHtml;

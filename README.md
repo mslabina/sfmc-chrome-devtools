@@ -34,7 +34,7 @@ This feature helps displaying important information about your data extensions t
 
 ### Display Journey Details
 
-This feature helps displaying important information about a journey and it's versions in one combined view. Listed data includes Name, Id, CustomerKey, number of versions, information about the goal as well as goal attainment of each version. Additionally there is a breakdown into goal attainment at specific activities in the current journey version which is also available as JSON and therefore enables the user to easily reuse this information in external systems, programs and scripts. Furthermore an overview of all activities in the current version including id, key, type and name is available in the interface as well as in JSON-format so it can be copy-pasted to an external system for further processing. As soon as you open the journey you want to check, the data will be presented in the "Journey Details" tab.
+This feature helps displaying important information about a journey and it's versions in one combined view. Listed data includes Name, Id, CustomerKey, number of versions, information about the goal as well as goal attainment of each version. Additionally there is a breakdown into goal attainment at specific activities in the current journey version which is also available as JSON and therefore enables the user to easily reuse this information in external systems, programs and scripts. Furthermore an overview of all activities of the current version including id, key, type, name and the triggeredSendId for email activities is available in the interface as well as in JSON-format so it can be copy-pasted to an external system for further processing. As soon as you open the journey you want to check, the data will be presented in the "Journey Details" tab.
 
 Example goal attainment JSON-output:
 
@@ -71,7 +71,8 @@ Example activity JSON-output:
       "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
       "key": "EMAILV2-1",
       "type": "EMAILV2",
-      "name": "Example email"
+      "name": "Example email",
+      "triggeredSendId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
     }
   ]
 }
