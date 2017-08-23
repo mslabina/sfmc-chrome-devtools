@@ -12,7 +12,7 @@ This is an extension of Google Chrome developer tools, that makes life easier fo
 
 However, this extension is currently being developed so the featureset will grow over time. If you have any questions, discovered bugs or just have an idea on how to improve this extension, feel free to raise an issue here on github.
 
-## Features (v0.2.3 and up)
+## Features (v0.2.4)
 
 ### Gather Instance Information
 
