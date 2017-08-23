@@ -12,7 +12,7 @@ This is an extension of Google Chrome developer tools, that makes life easier fo
 
 However, this extension is currently being developed so the featureset will grow over time. If you have any questions, discovered bugs or just have an idea on how to improve this extension, feel free to raise an issue here on github.
 
-## Features (v0.2.1 and up)
+## Features (v0.2.3 and up)
 
 ### Gather Instance Information
 
@@ -24,9 +24,9 @@ Adds the ids of your publication lists to the name column of the Publication Lis
 
 `Publication Lists: [{"listId":1234,"categoryId":1234,"name":"Test"},{"listId":1235,"categoryId":1234,"name":"Test 2"}]`
 
-### Expose Wait Activity Keys
+### Expose Activity Keys
 
-Adds the keys of your wait activities in Journey Builder after the wait time on the journey canvas (e.g. 3 days <i>(WAIT-1)</i>). In combination with the "Journey Details"-feature this helps with the programmatic analysis of goal attainment in specific paths of your journey (you can find a description of this feature below; further information is available on my [blog](https://markus.codes/2017/08/03/salesforce-marketing-cloud-developer-tools-journey-details-feature)).
+Adds the keys of your canvas activities in Journey Builder above the activity icon on the journey canvas (e.g. 3 days <i>(WAIT-1)</i>). In combination with the "Journey Details"-feature this helps with the programmatic analysis of goal attainment in specific paths of your journey (you can find a description of this feature below; further information is available on [my blog](https://markus.codes/2017/08/03/salesforce-marketing-cloud-developer-tools-journey-details-feature)).
 
 ### Display Data Extension Details
 
