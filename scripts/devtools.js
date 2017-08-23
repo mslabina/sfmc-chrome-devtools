@@ -90,9 +90,29 @@ chrome.devtools.panels.create('Marketing Cloud', 'icons/icon128.png', 'panel.htm
 								content = JSON.parse(content);
 
 								if (content.activities) {
+									let activitiesHtml = '';
+									let activitiesJson = {activities: []};
 									content.activities.forEach((activity) => {
+										// Write to panel.activities so it is usable in conjunction
+										// with goal attainment data retrievied from another route
 										panel.activities[activity.id] = activity;
+
+										activitiesHtml += '<tr>';
+										activitiesHtml += '<td class="center">' + (activity.id || '-') + '</td>';
+										activitiesHtml += '<td class="center">' + (activity.key || '-') + '</td>';
+										activitiesHtml += '<td class="center">' + (activity.type || '-') + '</td>';
+										activitiesHtml += '<td class="center">' + (activity.name || '-') + '</td>';
+										activitiesHtml += '</tr>';
+										activitiesJson.activities.push({
+											id: activity.id,
+											key: activity.key,
+											type: activity.type,
+											name: activity.name
+										});
 									});
+
+									win.document.getElementById('activityList').innerHTML = activitiesHtml;
+									win.document.getElementById('activitiesJson').value = JSON.stringify(activitiesJson);
 								}
 
 								win.document.getElementById('journeyName').innerHTML = (content && content.items && content.items.length > 0) ? content.items[0].name : '';
