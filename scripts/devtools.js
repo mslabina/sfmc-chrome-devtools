@@ -92,11 +92,23 @@ chrome.devtools.panels.create('Marketing Cloud', 'icons/icon128.png', 'panel.htm
 								if (content.activities) {
 									let activitiesHtml = '';
 									let activitiesJson = {activities: []};
+
 									content.activities.forEach((activity) => {
 										// Write to panel.activities so it is usable in conjunction
 										// with goal attainment data retrievied from another route
 										panel.activities[activity.id] = activity;
+									});
 
+									// Sort activities by type
+									content.activities.sort((a, b) => {
+										if (a.type < b.type) {
+											return -1;
+										} else if (a.type > b.type) {
+											return 1;
+										} else {
+											return 0;
+										}
+									}).forEach((activity) => {
 										let tmpActivity = {
 											id: activity.id,
 											key: activity.key,
